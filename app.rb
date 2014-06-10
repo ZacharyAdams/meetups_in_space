@@ -29,6 +29,10 @@ def authenticate!
   end
 end
 
+def create_meetup(name, location, description)
+  Meetup.create(name: name, location: location, description: description)
+end
+
 get '/' do
   @meetups = Meetup.all.order('name asc')
   erb :index
@@ -58,4 +62,19 @@ end
 get '/meetups/:id' do
 @meetup = Meetup.find(params[:id])
 erb :'meetups/show'
+end
+
+get '/create_meetup' do
+authenticate!
+erb :'create_meetup/show'
+end
+
+post '/create_meetup' do
+@name = params[:name]
+@location = params[:location]
+@description = params[:description]
+@new_meetup = create_meetup(@name, @location, @description)
+@id = @new_meetup[:id]
+flash[:notice] = "You just made a new post!"
+redirect "/meetups/#{@id}"
 end
