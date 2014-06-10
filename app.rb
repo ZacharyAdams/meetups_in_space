@@ -64,6 +64,8 @@ get '/meetups/:id' do
 erb :'meetups/show'
 end
 
+
+
 get '/create_meetup' do
 authenticate!
 erb :'create_meetup/show'
