@@ -4,6 +4,8 @@ class CreateMeetups < ActiveRecord::Migration
       table.string :name, null: false
       table.text :description
       table.string :location, null: false
+
+      table.timestamps
     end
   end
 end
