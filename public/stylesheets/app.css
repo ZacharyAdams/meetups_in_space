@@ -15,6 +15,12 @@ a:visited {
   margin: 0 auto;
 }
 
+input, textarea {
+
+  background-color : #000000;
+
+}
+
 .top-bar {
   background-color: #3C3C3C;
 }

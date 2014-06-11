@@ -60,7 +60,9 @@ get '/example_protected_page' do
 end
 
 get '/meetups/:id' do
+authenticate!
 @meetup = Meetup.find(params[:id])
+@users = @meetup.users("username, avatar_url")
 erb :'meetups/show'
 end
 
