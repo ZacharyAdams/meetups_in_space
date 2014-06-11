@@ -24,12 +24,12 @@ ActiveRecord::Schema.define(version: 20140610214942) do
     t.datetime "updated_at"
   end
 
-  create_table "usermeetups", force: true do |t|
+  create_table "user_meetups", force: true do |t|
     t.integer "user_id",   null: false
     t.integer "meetup_id", null: false
   end
 
-  add_index "usermeetups", ["user_id", "meetup_id"], name: "index_usermeetups_on_user_id_and_meetup_id", unique: true, using: :btree
+  add_index "user_meetups", ["user_id", "meetup_id"], name: "index_user_meetups_on_user_id_and_meetup_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider",   null: false
