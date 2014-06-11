@@ -80,3 +80,17 @@ post '/create_meetup' do
 flash[:notice] = "You just made a new post!"
 redirect "/meetups/#{@id}"
 end
+
+post "/join_meetup/:id" do
+  @user_id = session[:user_id]
+  @meetup_id = params[:id]
+  @meetup = Meetup.find(@meetup_id)
+  if !@meetup.users.include?(current_user)
+    @join = @meetup.users << current_user
+    flash[:notice] = "Event joined!"
+  else
+    flash[:notice] = "You're already signed up for this meeting!"
+  end
+  redirect "/meetups/#{@meetup_id}"
+end
+
