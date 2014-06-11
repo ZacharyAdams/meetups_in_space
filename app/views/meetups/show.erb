@@ -3,9 +3,15 @@
 <p><%= @meetup.location %></p>
 
 <p><%= @meetup.description %></p>
-<form action="/join_meetup/<%= @meetup.id %>" method="post">
-  <input type="submit" value="Join meetup!">
+<% if @meetup.users.include?(current_user) %>
+<form action="/leave_meetup/<%= @meetup.id %>" method="post">
+  <input type="submit" value="Leave Meetup!">
 </form>
+<% else %>
+<form action="/join_meetup/<%= @meetup.id %>" method="post">
+<input type="submit" value="Join Meetup!">
+</form>
+<% end %>
 <br><br><br>
 <h3>Members</h3>
 <ol>
