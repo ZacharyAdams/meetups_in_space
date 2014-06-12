@@ -33,6 +33,10 @@ def create_meetup(name, location, description)
   Meetup.create(name: name, location: location, description: description)
 end
 
+def create_comments(user_id, meetup_id, title, body)
+  Comment.create(user_id: user_id, meetup_id: meetup_id, title: title, body: body)
+end
+
 get '/' do
   @meetups = Meetup.all.order('name asc')
   erb :index
@@ -62,6 +66,7 @@ end
 get '/meetups/:id' do
 authenticate!
 @meetup = Meetup.find(params[:id])
+@comments = Comment.where(meetup_id: params[:id])
 @users = @meetup.users("username, avatar_url")
 erb :'meetups/show'
 end
@@ -101,5 +106,16 @@ post "/leave_meetup/:id" do
   @meetup.users.delete(current_user)
   flash[:notice] = "You have left this Meetup!"
   redirect "/meetups/#{@meetup_id}"
+end
+
+post "/create_comment/:id" do
+@user_id = session[:user_id]
+@meetup_id = params[:id]
+@title = params[:title]
+@body = params[:body]
+@meetup = Meetup.find(@meetup_id)
+@new_comments = create_comments(@user_id, @meetup_id, @title, @body)
+flash[:notice] = "Comment Posted!"
+redirect "/meetups/#{@meetup_id}"
 end
 

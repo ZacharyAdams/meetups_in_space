@@ -2,6 +2,8 @@
 
 <ol>
   <% @meetups.each do |meetup| %>
-  <li><a href="/meetups/<%= meetup.id %>"><%= meetup.name %></a></li>
+  <li>
+    <a href="/meetups/<%= meetup.id %>"><%= meetup.name %></a>
+  </li>
   <% end %>
 </ol>
